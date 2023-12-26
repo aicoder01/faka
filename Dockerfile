@@ -16,7 +16,7 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 COPY . .
 RUN chmod +x docker-entrypoint.sh
 
-# EXPOSE 8000
+
 # ENTRYPOINT [ "/usr/src/app/docker-entrypoint.sh" ]
 # ENTRYPOINT ["gunicorn","-k", "gevent", "--bind", "0.0.0.0:8000", "--workers", "8", "app:app"]
 
@@ -31,6 +31,7 @@ RUN sed -i "s|'postgresql+psycopg2://\${DB_USER}:\${DB_PASSWORD}@\${DB_HOST}:\${
     sed -i '$d' docker-entrypoint.sh && \
     echo "gunicorn -k gevent --bind 0.0.0.0:\${PORT} --workers 4 app:app" >> docker-entrypoint.sh
 
-EXPOSE $PORT
+# EXPOSE $PORT
+EXPOSE 8000
 
 ENTRYPOINT [ "/usr/src/app/docker-entrypoint.sh" ]
